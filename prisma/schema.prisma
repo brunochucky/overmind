@@ -1,0 +1,64 @@
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native"]
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Meeting {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Meeting info fields
+  name        String   // person or company name (mandatory)
+  email       String   // email address (mandatory)
+  phone       String?  // phone number (optional)
+  type        String?  // meeting type (optional)
+  language    String   @default("en-US") // transcription language (en-US or pt-BR)
+  
+  // Recording data
+  transcript  String?  // full transcript text
+  duration    Int?     // recording duration in seconds
+  audioPath   String?  // S3 path to the audio file
+  
+  // LLM generated content
+  recap       String?  // summary, action points, next steps
+  highlights  String?  // extracted highlights based on context
+  
+  // Processing status
+  status      MeetingStatus @default(PENDING)
+  
+  @@map("meetings")
+}
+
+enum MeetingStatus {
+  PENDING      // Form filled, ready to record
+  RECORDING    // Currently recording
+  PROCESSING   // Processing transcript with LLM
+  COMPLETED    // All processing done
+  FAILED       // Processing failed
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // hashed password
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("users")
+}
+
+model AppSettings {
+  id                String @id @default(cuid())
+  highlightContext  String @default("interview with company about needs and opportunities")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  @@map("app_settings")
+}
