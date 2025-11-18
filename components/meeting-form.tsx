@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { OvermindLogo } from './overmind-logo';
 import * as z from 'zod';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -87,7 +88,8 @@ export function MeetingForm({ onSubmit, initialData }: MeetingFormProps) {
     >
       <Card className="w-full max-w-md bg-white/10 border-white/20 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="text-white text-center text-2xl">
+          <OvermindLogo className='mx-auto' />
+          <CardTitle className="text-white/70 text-sm text-center">
             Meeting Details
           </CardTitle>
         </CardHeader>

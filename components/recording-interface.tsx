@@ -9,6 +9,7 @@ import { Card, CardContent } from './ui/card';
 import { Mic, Square, ArrowLeft, Volume2, Loader2 } from 'lucide-react';
 import { MeetingData } from './landing-client';
 import { toast } from 'sonner';
+import { OvermindLogo } from './overmind-logo';
 
 interface RecordingInterfaceProps {
   meetingData: MeetingData;
@@ -233,12 +234,14 @@ export function RecordingInterface({ meetingData, onComplete, onBack }: Recordin
       animate={{ opacity: 1 }}
       className="flex flex-col items-center justify-center min-h-screen text-center space-y-8 p-4"
     >
+      <OvermindLogo className="mx-auto" />
       {/* Meeting info header */}
       <motion.div
         initial={{ y: -20 }}
         animate={{ y: 0 }}
         className="text-white"
       >
+        
         <h2 className="text-2xl font-semibold mb-2">
           Recording Meeting with {meetingData.name}
         </h2>

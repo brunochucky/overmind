@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { OvermindLogo } from './overmind-logo';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -77,9 +78,9 @@ export function LoginForm() {
     >
       <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl text-white text-center font-bold">
-            Overmind
-          </CardTitle>
+          <div className="flex justify-center mb-2">
+            <OvermindLogo textClassName="text-3xl" />
+          </div>
           <CardDescription className="text-white/70 text-center">
             Sign in to access your meeting recorder
           </CardDescription>

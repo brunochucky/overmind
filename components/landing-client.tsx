@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { OvermindLogo } from './overmind-logo';
 import { AmoebaAnimation } from './amoeba-animation';
 import { MeetingForm } from './meeting-form';
 import { RecordingInterface } from './recording-interface';
@@ -122,13 +123,13 @@ export function LandingClient() {
             animate={{ opacity: 1 }}
             className="text-center"
           >
-            <motion.h1
+            <motion.div
               initial={{ y: -20 }}
               animate={{ y: 0 }}
-              className="text-6xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+              className="mb-4"
             >
-              Overmind
-            </motion.h1>
+              <OvermindLogo textClassName="text-6xl" />
+            </motion.div>
             <motion.p
               initial={{ y: 20 }}
               animate={{ y: 0 }}

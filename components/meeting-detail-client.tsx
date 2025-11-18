@@ -24,6 +24,8 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { OvermindLogo } from './overmind-logo';
+
 interface Meeting {
   id: string;
   name: string;
@@ -207,17 +209,26 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          className="flex justify-between items-center mb-8"
         >
+          <OvermindLogo />
           <Button
             onClick={() => router.push('/dashboard')}
             variant="ghost"
-            className="text-white/70 hover:text-white mb-4"
+            className="text-white/70 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Button>
+        </motion.div>
 
+        {/* Page Title */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-6"
+        >
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <h1 className="text-4xl font-bold text-white mb-2">
@@ -258,7 +269,7 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.2 }}
         >
           <Card className="bg-white/10 border-white/20 backdrop-blur-sm mb-6">
             <CardHeader>
@@ -322,7 +333,7 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3 }}
           >
             <Card className="bg-white/10 border-white/20 backdrop-blur-sm mb-6">
               <CardHeader>
@@ -378,7 +389,7 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
           >
             <Card className="bg-white/10 border-white/20 backdrop-blur-sm mb-6">
               <CardHeader>
@@ -401,7 +412,7 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.5 }}
           >
             <Card className="bg-white/10 border-white/20 backdrop-blur-sm mb-6">
               <CardHeader>
@@ -421,7 +432,7 @@ export function MeetingDetailClient({ meetingId }: MeetingDetailClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
           >
             <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
               <CardHeader>
