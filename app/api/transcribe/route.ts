@@ -51,11 +51,11 @@ export async function POST(request: NextRequest) {
     console.log("Audio buffer created, size:", buffer.length);
 
     // Upload audio file to S3
-    const audioFileName = `uploads/${meetingId}-${Date.now()}.webm`;
-    console.log("Uploading audio file to S3 as:", audioFileName);
+    // const audioFileName = `uploads/${meetingId}-${Date.now()}.webm`;
+    // console.log("Uploading audio file to S3 as:", audioFileName);
 
-    const audioPath = await uploadFile(buffer, audioFileName);
-    console.log("Audio file uploaded successfully to S3:", audioPath);
+    // const audioPath = await uploadFile(buffer, audioFileName);
+    // console.log("Audio file uploaded successfully to S3:", audioPath);
 
     const audioPath = "/";
 

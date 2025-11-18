@@ -31,7 +31,7 @@ export interface MeetingData {
 }
 
 export function LandingClient() {
-  const [currentState, setCurrentState] = useState<AppState>('landing');
+  const [currentState, setCurrentState] = useState<AppState>('form');
   const [meetingData, setMeetingData] = useState<MeetingData>({
     name: '',
     email: '',
@@ -87,16 +87,14 @@ export function LandingClient() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4 relative">
       <div className="absolute top-4 right-4 flex gap-2 z-10">
-        {currentState === 'landing' && (
-          <Button
-            onClick={() => router.push('/dashboard')}
-            variant="ghost"
-            className="text-white/70 hover:text-white"
-            title="View Dashboard"
-          >
-            Dashboard
-          </Button>
-        )}
+        <Button
+          onClick={() => router.push('/dashboard')}
+          variant="ghost"
+          className="text-white/70 hover:text-white"
+          title="View Dashboard"
+        >
+          Dashboard
+        </Button>
         <Button
           onClick={() => setShowSettings(true)}
           variant="ghost"

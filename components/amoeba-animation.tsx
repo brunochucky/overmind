@@ -2,16 +2,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 interface AmoebaAnimationProps {
   onClick?: () => void;
   isRecording?: boolean;
+  isProcessing?: boolean;
+  statusText?: string;
   size?: 'small' | 'medium' | 'large';
 }
 
-export function AmoebaAnimation({ onClick, isRecording = false, size = 'large' }: AmoebaAnimationProps) {
-  const [isHovered, setIsHovered] = useState(false);
+export function AmoebaAnimation({ 
+  onClick, 
+  isRecording = false, 
+  isProcessing = false,
+  statusText,
+  size = 'large' 
+}: AmoebaAnimationProps) {
   
   const sizeClasses = {
     small: 'w-20 h-20',
@@ -19,42 +25,66 @@ export function AmoebaAnimation({ onClick, isRecording = false, size = 'large' }
     large: 'w-48 h-48'
   };
 
+  const idleAnimation = {
+    rotate: [0, 45, 0],
+    borderRadius: ["50%", "45% 55% 60% 40%", "55% 45% 40% 60%", "50%"],
+  };
+
+  const recordingAnimation = {
+    scale: [1, 1.05, 1],
+    rotate: 360,
+    borderRadius: ["50%", "60% 40% 70% 30%", "40% 60% 30% 70%", "50%"],
+  };
+  
+  const processingAnimation = {
+    scale: [1, 0.9, 1],
+    rotate: [0, 90, 180, 270, 360],
+    borderRadius: ["50%", "30% 70% 30% 70%", "70% 30% 70% 30%", "50%"],
+  };
+
+  const getAnimation = () => {
+    if (isProcessing) return processingAnimation;
+    if (isRecording) return recordingAnimation;
+    return idleAnimation;
+  };
+
+  const getTransition = () => {
+    if (isProcessing) return { duration: 1.5, repeat: Infinity, ease: "linear" };
+    if (isRecording) return { duration: 3, repeat: Infinity, ease: "easeInOut" };
+    return { duration: 8, repeat: Infinity, ease: "easeInOut" };
+  };
+
   return (
     <div className="flex items-center justify-center">
       <motion.div
-        className={`${sizeClasses[size]} cursor-pointer relative`}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
+        className={`${sizeClasses[size]} cursor-pointer relative flex items-center justify-center`}
         onClick={onClick}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={!isRecording && !isProcessing ? { scale: 1.05 } : {}}
+        whileTap={!isRecording && !isProcessing ? { scale: 0.95 } : {}}
       >
+        {/* Text Overlay */}
+        {statusText && (
+          <span className="relative z-10 text-white font-semibold text-lg pointer-events-none">
+            {statusText}
+          </span>
+        )}
+
         {/* Main amoeba shape */}
         <motion.div
-          className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 opacity-90"
-          animate={{
-            scale: isRecording ? [1, 1.1, 1] : isHovered ? 1.05 : 1,
-            rotate: isRecording ? 360 : 0,
-            borderRadius: isRecording 
-              ? ["50%", "40% 60% 50% 70%", "60% 40% 70% 50%", "50%"]
-              : ["50%", "60% 40% 70% 50%", "40% 60% 50% 70%", "50%"],
-          }}
-          transition={{
-            duration: isRecording ? 2 : 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-600 via-cyan-500 to-indigo-600"
+          animate={getAnimation()}
+          transition={getTransition()}
         />
 
         {/* Inner pulse */}
         <motion.div
-          className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-300 via-blue-300 to-indigo-300 opacity-60"
+          className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-400 via-cyan-300 to-indigo-400 opacity-70"
           animate={{
-            scale: isRecording ? [0.8, 1.2, 0.8] : [0.9, 1.1, 0.9],
-            opacity: isRecording ? [0.6, 0.3, 0.6] : [0.4, 0.6, 0.4],
+            scale: isRecording ? [0.9, 1.1, 0.9] : isProcessing ? [1.1, 0.9, 1.1] : [1, 1.05, 1],
+            opacity: isRecording ? [0.7, 0.5, 0.7] : isProcessing ? [0.8, 0.6, 0.8] : [0.5, 0.7, 0.5],
           }}
           transition={{
-            duration: isRecording ? 1.5 : 3,
+            duration: isRecording ? 2 : isProcessing ? 1 : 5,
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -62,32 +92,30 @@ export function AmoebaAnimation({ onClick, isRecording = false, size = 'large' }
 
         {/* Core */}
         <motion.div
-          className="absolute inset-8 rounded-full bg-gradient-to-br from-white via-purple-200 to-blue-200 opacity-80"
+          className="absolute inset-8 rounded-full bg-gradient-to-br from-white/80 via-cyan-200/80 to-purple-200/80"
           animate={{
-            scale: isRecording ? [1, 0.8, 1] : [0.95, 1.05, 0.95],
+            scale: isRecording ? [1, 0.9, 1] : isProcessing ? [0.9, 1, 0.9] : [1.05, 0.95, 1.05],
           }}
           transition={{
-            duration: isRecording ? 1 : 2,
+            duration: isRecording ? 1.5 : isProcessing ? 0.5 : 4,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
 
-        {/* Glowing effect when recording */}
-        {isRecording && (
-          <motion.div
-            className="absolute -inset-2 rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 opacity-30 blur-lg"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        )}
+        {/* Glowing effect */}
+        <motion.div
+          className="absolute -inset-2 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 opacity-40 blur-xl"
+          animate={{
+            scale: isRecording ? [1.1, 1.2, 1.1] : isProcessing ? [1.2, 1.1, 1.2] : [1, 1.1, 1],
+            opacity: isRecording ? [0.4, 0.7, 0.4] : isProcessing ? [0.7, 0.4, 0.7] : [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: isRecording ? 2 : isProcessing ? 1 : 5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </motion.div>
     </div>
   );

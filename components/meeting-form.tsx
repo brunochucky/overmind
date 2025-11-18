@@ -96,16 +96,17 @@ export function MeetingForm({ onSubmit, initialData }: MeetingFormProps) {
             {/* Name field */}
             <div className="space-y-2">
               <Label htmlFor="name" className="text-white/90 flex items-center gap-2">
-                <User className="h-4 w-4" />
                 Name *
               </Label>
-              <Input
-                id="name"
-                {...register('name')}
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 pl-10"
-                placeholder="Enter your name or company"
-              />
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50 pointer-events-none" />
+              <div className="relative">
+                <Input
+                  id="name"
+                  {...register('name')}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 pl-10"
+                  placeholder="Enter your name or company"
+                />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50 pointer-events-none" />
+              </div>
               {errors.name && (
                 <p className="text-red-400 text-sm">{errors.name.message}</p>
               )}
@@ -192,8 +193,8 @@ export function MeetingForm({ onSubmit, initialData }: MeetingFormProps) {
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"
-                variant="ghost"
-                className="flex-1 text-white/70 hover:text-white border-white/20"
+                variant="outline"
+                className="flex-1 text-white/90 bg-transparent border-white/30 hover:bg-white/10 hover:text-white"
                 onClick={() => window.history.back()}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />

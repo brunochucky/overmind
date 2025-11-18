@@ -249,11 +249,16 @@ export function RecordingInterface({ meetingData, onComplete, onBack }: Recordin
 
       {/* Amoeba animation - clickable to start/stop recording */}
       <div onClick={isRecording ? stopRecording : (isProcessing ? undefined : startRecording)} className={!isProcessing ? 'cursor-pointer' : 'cursor-not-allowed'}>
-        <AmoebaAnimation isRecording={isRecording} size="large" />
+        <AmoebaAnimation 
+          isRecording={isRecording} 
+          isProcessing={isProcessing}
+          statusText={isProcessing ? 'Processing...' : isRecording ? 'Stop' : 'Record'}
+          size="large" 
+        />
       </div>
 
-      {/* Instructions */}
-      {!isRecording && !isProcessing && (
+      {/* Instructions - REMOVED as text is now inside the amoeba */}
+      {/* {!isRecording && !isProcessing && (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -261,7 +266,7 @@ export function RecordingInterface({ meetingData, onComplete, onBack }: Recordin
         >
           Click the organism to {isRecording ? 'stop' : 'start'} recording
         </motion.p>
-      )}
+      )} */}
 
       {/* Recording status */}
       <Card className="w-full max-w-md bg-white/10 border-white/20 backdrop-blur-sm">

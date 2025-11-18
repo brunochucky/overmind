@@ -97,10 +97,10 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
                   value={highlightContext}
                   onChange={(e) => setHighlightContext(e.target.value)}
                   placeholder="e.g., interview with company about needs and opportunities"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
                   disabled={isLoading}
                 />
-                <p className="text-xs text-white/60">
+                <p className="text-xs text-white/80">
                   This context helps the AI identify relevant highlights during meetings
                 </p>
               </div>
@@ -110,8 +110,8 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
           <div className="flex gap-3 pt-4">
             <Button
               onClick={onClose}
-              variant="ghost"
-              className="flex-1 text-white/70 hover:text-white border-white/20"
+              variant="outline"
+              className="flex-1 text-white/90 bg-transparent border-white/30 hover:bg-white/10 hover:text-white"
             >
               Cancel
             </Button>
